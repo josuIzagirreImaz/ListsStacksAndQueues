@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.ExceptionServices;
 
 namespace Common
 {
@@ -34,16 +37,43 @@ namespace Common
             return output;
         }
 
-        
+
         public void Add(int value)
         {
             //TODO #1: add a new integer to the end of the list
+            IntListNode nodeA;
+            if (First == null)
+            {
+                First = new IntListNode(value);
+            }
+            else 
+            {
+                nodeA = First;
+                while (nodeA.Next != null)
+                {
+                    nodeA= nodeA.Next;
+                }
+                nodeA.Next = new IntListNode(value);
+            }
+
         }
 
         private IntListNode GetNode(int index)
         {
             //TODO #2: Return the element in position 'index'
+            int currentPos = 0;
+            IntListNode currentNode = First;
+            while (currentPos < index && currentNode.Next != null)
+            {
+                currentNode = currentNode.Next;
+                currentPos++;
+            }
+            if(currentPos == index)
+            {
+                return currentNode;
+            }
             return null;
+                                                      }
         }
 
         
@@ -56,8 +86,15 @@ namespace Common
         
         public int Count()
         {
-            //TODO #4: return the number of elements on the list
-            return 0;
+        //TODO #4: return the number of elements on the list
+        int currentPos = 0;
+        IntListNode currentNode = First;
+        while (currentNode.Next != null)
+        {
+            currentNode = currentNode.Next;
+            currentPos++;
+        }
+        return (currentPos+1);
         }
         
         public void Remove(int index)
