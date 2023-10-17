@@ -19,6 +19,8 @@ public class GenericListNode<T>
 public class GenericList<T> : IGenericList<T>
 {
     GenericListNode<T> First = null;
+    private int NumElements = 0;
+    GenericListNode<T> Last = null;
 
     public string AsString()
     {
@@ -38,12 +40,37 @@ public class GenericList<T> : IGenericList<T>
     public void Add(T value)
     {
         //TODO #1: add a new element to the end of the list
-    }
+        if (First == null)
+        {
+            First = new GenericListNode<T>(value);
+            Last = First;
+        }
+        else
+        {
+
+
+            Last.Next = new GenericListNode<T>(value);
+
+            Last = Last.Next;
+
+        }
+     }
 
     public GenericListNode<T> FindNode(int index)
     {
         //TODO #2: Return the element in position 'index'
 
+        int currentPos = 0;
+        GenericListNode<T> currentNode = First;
+        while (currentPos < index && currentNode.Next != null)
+        {
+            currentNode = currentNode.Next;
+            currentPos++;
+        }
+        if (currentPos == index)
+        {
+            return currentNode;
+        }
         return null;
     }
 
@@ -51,23 +78,54 @@ public class GenericList<T> : IGenericList<T>
     {
         //TODO #3: return the element on the index-th position. YOU MUST USE GetNode(int). Return the default value for object class T if the position is out of bounds
 
-        return default(T);
+        if (FindNode(index) == null)
+        {
+            return default;
+        }
+        else
+        {
+            return FindNode(index).Value;
+        }
     }
     public int Count()
     {
         //TODO #4: return the number of elements on the list
 
-        return 0;
+        return NumElements;
     }
 
 
     public void Remove(int index)
     {
-        //TODO #5: remove the element on the index-th position. Do nothing if position is out of bounds
-    }
+            //TODO #5: remove the element on the index-th position. Do nothing if position is out of bounds
+            if (index >= NumElements)
+            {
+                return;
+            }
+            else
+            {
+
+                int currentPos = 0;
+                GenericListNode<T> currentNode = First;
+                GenericListNode<T> anteriorNode = null;
+                while (currentNode == null)
+                {
+
+                    if (currentPos == index)
+                    {
+                        anteriorNode.Next = currentNode.Next;
+                    }
+                    anteriorNode = currentNode;
+                    currentNode = currentNode.Next;
+                    currentPos++;
+                }
+                NumElements--;
+            }
+        }
 
     public void Clear()
     {
-        //TODO #6: remove all the elements on the list
+            //TODO #6: remove all the elements on the list
+            First = null;
     }
 }

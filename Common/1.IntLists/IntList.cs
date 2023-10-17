@@ -19,7 +19,8 @@ namespace Common
     public class IntList : IList
     {
         IntListNode First = null;
-
+        private int NumElements = 0;
+        IntListNode Last = null;
         //This method returns all the elements on the list as a string
         //Use it as an example on how to access all the elements on the list
         public string AsString()
@@ -41,20 +42,31 @@ namespace Common
         public void Add(int value)
         {
             //TODO #1: add a new integer to the end of the list
-            IntListNode nodeA;
             if (First == null)
             {
                 First = new IntListNode(value);
+                Last = First;
             }
-            else 
+            else
             {
-                nodeA = First;
-                while (nodeA.Next != null)
-                {
-                    nodeA= nodeA.Next;
-                }
-                nodeA.Next = new IntListNode(value);
+                
+                
+                Last.Next = new IntListNode(value);
+                
+                Last = Last.Next;
+
+
+
+
+                //nodeA = First;
+                //while (nodeA.Next != null)
+                //{
+                 //   nodeA = nodeA.Next;
+                //}
+                //nodeA.Next = new IntListNode(value);
+               
             }
+            NumElements++;
 
         }
 
@@ -68,44 +80,80 @@ namespace Common
                 currentNode = currentNode.Next;
                 currentPos++;
             }
-            if(currentPos == index)
+            if (currentPos == index)
             {
                 return currentNode;
             }
             return null;
-                                                      }
+
         }
 
-        
+
         public int Get(int index)
         {
             //TODO #3: return the element on the index-th position. YOU MUST USE GetNode(int). O if the position is out of bounds
-            return 0;
+            if (GetNode(index) == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return GetNode(index).Value;
+            }
+
         }
 
-        
+
         public int Count()
         {
-        //TODO #4: return the number of elements on the list
-        int currentPos = 0;
-        IntListNode currentNode = First;
-        while (currentNode.Next != null)
-        {
-            currentNode = currentNode.Next;
-            currentPos++;
+            //TODO #4: return the number of elements on the list
+            //int currentPos = 0;
+            //IntListNode currentNode = First;
+            //while (currentNode.Next != null)
+            //{
+            //currentNode = currentNode.Next;
+            //currentPos++;
+            //}
+            //return (currentPos);
+            return NumElements;
+            
         }
-        return (currentPos+1);
-        }
-        
+
         public void Remove(int index)
         {
             //TODO #5: remove the element on the index-th position. Do nothing if position is out of bounds
+
+            if (index >= NumElements)
+            {
+                return;
+            }
+            else { 
+
+            int currentPos = 0;
+            IntListNode currentNode = First;
+            IntListNode anteriorNode = null;
+            while (currentNode == null)
+            {
+
+                if (currentPos == index)
+                {
+                    anteriorNode.Next = currentNode.Next;
+                }
+                anteriorNode = currentNode;
+                currentNode = currentNode.Next;
+                currentPos++;
+            }
+            NumElements--;
+                }
+
         }
 
-        
+
         public void Clear()
         {
             //TODO #6: remove all the elements on the list
+            First.Next = null;
         }
     }
 }
+
