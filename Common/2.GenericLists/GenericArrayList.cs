@@ -1,7 +1,7 @@
 using System;
 namespace Common
 {
-    public class GenericArrayList<T> : IGenericList<T> where T : new()
+    public class GenericArrayList<T> : IGenericList<T>
     {
         T[] Values;
         int NumElements = 0;
@@ -10,7 +10,6 @@ namespace Common
         {
             //TODO #1: initialize Values with an array of size n
             Values = new T[n];
-            NumElements = n;
         }
         public string AsString()
         {

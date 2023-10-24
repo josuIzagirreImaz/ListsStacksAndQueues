@@ -127,22 +127,38 @@ namespace Common
             {
                 return;
             }
-            else { 
-
-            int currentPos = 0;
-            IntListNode currentNode = First;
-            IntListNode anteriorNode = null;
-            while (currentNode == null)
+            else
             {
 
-                if (currentPos == index)
+                if (NumElements == 1 && index==0)
                 {
-                    anteriorNode.Next = currentNode.Next;
+                    First = null;
                 }
-                anteriorNode = currentNode;
-                currentNode = currentNode.Next;
-                currentPos++;
-            }
+                else if(NumElements >1 && index ==0){
+
+                    First = First.Next;
+
+
+                }
+                else
+                {
+
+                    int currentPos = 0;
+                    IntListNode currentNode = First;
+                    IntListNode anteriorNode = First;
+                    while (currentNode != null || currentPos < NumElements)
+                    {
+
+                        
+                        anteriorNode = currentNode;
+                        currentNode = currentNode.Next;
+                        currentPos++;
+                    }
+                    if (currentPos == index)
+                    {
+                        anteriorNode.Next = currentNode.Next;
+                    }
+                }
             NumElements--;
                 }
 
@@ -152,7 +168,8 @@ namespace Common
         public void Clear()
         {
             //TODO #6: remove all the elements on the list
-            First.Next = null;
+            First = null;
+            NumElements = 0;
         }
     }
 }

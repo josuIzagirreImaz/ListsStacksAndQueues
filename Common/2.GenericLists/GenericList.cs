@@ -54,6 +54,7 @@ public class GenericList<T> : IGenericList<T>
             Last = Last.Next;
 
         }
+        NumElements++;
      }
 
     public GenericListNode<T> FindNode(int index)
@@ -97,35 +98,52 @@ public class GenericList<T> : IGenericList<T>
 
     public void Remove(int index)
     {
-            //TODO #5: remove the element on the index-th position. Do nothing if position is out of bounds
-            if (index >= NumElements)
+        //TODO #5: remove the element on the index-th position. Do nothing if position is out of bounds
+        if (index >= NumElements)
+        {
+            return;
+        }
+        else
+        {
+
+            if (NumElements == 1 && index == 0)
             {
-                return;
+                First = null;
+            }
+            else if (NumElements > 1 && index == 0)
+            {
+
+                First = First.Next;
+
+
             }
             else
             {
 
                 int currentPos = 0;
                 GenericListNode<T> currentNode = First;
-                GenericListNode<T> anteriorNode = null;
-                while (currentNode == null)
+                GenericListNode<T> anteriorNode = First;
+                while (currentNode != null || currentPos < NumElements)
                 {
 
-                    if (currentPos == index)
-                    {
-                        anteriorNode.Next = currentNode.Next;
-                    }
+
                     anteriorNode = currentNode;
                     currentNode = currentNode.Next;
                     currentPos++;
                 }
-                NumElements--;
+                if (currentPos == index)
+                {
+                    anteriorNode.Next = currentNode.Next;
+                }
             }
+            NumElements--;
         }
+    }
 
     public void Clear()
     {
             //TODO #6: remove all the elements on the list
             First = null;
+            NumElements = 0;
     }
 }

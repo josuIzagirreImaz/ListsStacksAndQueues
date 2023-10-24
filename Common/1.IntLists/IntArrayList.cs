@@ -11,7 +11,7 @@ namespace Common
         {
             //TODO #1: initialize Values with an array of size n
             Values = new int[n];
-            NumElements= n;
+            
         }
         public string AsString()
         {
@@ -30,7 +30,7 @@ namespace Common
             //TODO #2: add a new integer to the end of the list
             if (NumElements == Values.Length)
             {
-                
+                return;
             }
             else
             {
