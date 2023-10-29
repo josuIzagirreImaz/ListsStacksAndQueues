@@ -8,7 +8,7 @@ namespace Common
 
         public GenericStack()
         {
-            MyList= new GenericArrayList<T> (10000); 
+            MyList= new GenericArrayList<T>(10000); 
         }
 
         public string AsString()
@@ -39,8 +39,8 @@ namespace Common
         public T Pop()
         {
             //TODO #6: Remove the first object of the list and return it
-            T tempo= MyList.Get(MyList.Count());
-            MyList.Remove(MyList.Count());
+            T tempo= MyList.Get(MyList.Count()-1);
+            MyList.Remove(MyList.Count()-1);
             return tempo;
         }
     }

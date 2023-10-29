@@ -55,11 +55,20 @@ namespace Common
         public void Remove(int index)
         {
             //TODO #5: remove the element on the index-th position. Do nothing if position is out of bounds
-            for (int cont = index; cont < NumElements; cont++)
+            if (index > Values.Length)
             {
-                Values[cont] = Values[cont + 1];
+                return;
             }
-            NumElements--;
+            else
+            {
+                
+                    for (int cont = index; cont < NumElements-1; cont++)
+                    {
+                        Values[cont] = Values[cont + 1];
+                    }
+                    NumElements--;
+              
+            }
         }
 
         public void Clear()
